@@ -97,8 +97,22 @@ resource "aws_security_group" "project1_sc" {
   }
 }
 #creating the instance:
+
 resource "aws_instance" "server" {
-  count                  = "2"
+  count                  = "1"
+  ami                    = var.ami_id
+  instance_type          = "t2.large"
+  subnet_id              = aws_subnet.project1_subnet.id
+  key_name               = var.keypair
+  vpc_security_group_ids = [aws_security_group.project1_sc.id]
+  associate_public_ip_address = true
+  tags = {
+    Name = "Jenkins_Master_Server - ${count.index}"
+  }
+}
+
+resource "aws_instance" "server" {
+  count                  = "1"
   ami                    = var.ami_id
   instance_type          = "t2.micro"
   subnet_id              = aws_subnet.project1_subnet.id
@@ -106,6 +120,6 @@ resource "aws_instance" "server" {
   vpc_security_group_ids = [aws_security_group.project1_sc.id]
   associate_public_ip_address = true
   tags = {
-    Name = "Server - ${count.index}"
+    Name = "Ansible_Server - ${count.index}"
   }
 }
