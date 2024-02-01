@@ -1,0 +1,11 @@
+---
+- name: To_install_packages_on_jenkins_master
+  hosts: jenkins_master
+  become: true
+  tasks: 
+    - name: To install packages 
+      script: jenkins.sh
+    
+    - name: To notify the installation
+      debug:
+        msg: "Package has been installed"
