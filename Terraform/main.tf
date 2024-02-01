@@ -98,7 +98,7 @@ resource "aws_security_group" "project1_sc" {
 }
 #creating the instance:
 resource "aws_instance" "server" {
-  count                  = "4"
+  count                  = "2"
   ami                    = var.ami_id
   instance_type          = "t2.micro"
   subnet_id              = aws_subnet.project1_subnet.id
